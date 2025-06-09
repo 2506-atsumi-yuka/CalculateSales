@@ -39,7 +39,6 @@ public class CalculateSales {
 		// ※ここから集計処理を作成してください。(処理内容2-1、2-2)
 
 
-
 		// 支店別集計ファイル書き込み処理
 		if(!writeFile(args[0], FILE_NAME_BRANCH_OUT, branchNames, branchSales)) {
 			return;
@@ -68,8 +67,22 @@ public class CalculateSales {
 			// 一行ずつ読み込む
 			while((line = br.readLine()) != null) {
 				// ※ここの読み込み処理を変更してください。(処理内容1-2)
-				System.out.println(line);
+				String[] items = line.split(",");
 			}
+		
+				System.out.println(line);
+				
+		Map<String, String> branchNames1 = new HashMap<>();
+		Map<String, Long> branchSales1 = new HashMap<>();
+		
+			String line1;
+			while((line1 = br.readLine()) != null) {
+				String[] items = line1.split(",");
+				
+				branchNames1.put("001", "札幌支店");
+				branchSales1.put("001", (long) 0);
+			}
+		
 
 		} catch(IOException e) {
 			System.out.println(UNKNOWN_ERROR);
