@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CalculateSales {
@@ -37,6 +39,25 @@ public class CalculateSales {
 		}
 
 		// ※ここから集計処理を作成してください。(処理内容2-1、2-2)
+		File[] files = new File("C:\\Users\\trainee1443\\Desktop\\売上集計課題").listFiles();
+
+		List<File> rcdFiles = new ArrayList<>();
+
+		for(int i = 0; i < files.length ; i++) {
+			String str = files[i].getName();
+			if(str.matches("[0-9]{8}.rcd")) {
+				rcdFiles.add(files[i]);
+			}
+		}
+
+		for(int i = 0; i < rcdFiles.size(); i++) {
+			//long fileSale = Long.parseLong(branchSales.get("a"));
+			//Long saleAmount = branchSales.get() + fileSale;
+		}
+
+		for(String key : branchSales.keySet()) {
+		}
+
 
 
 		// 支店別集計ファイル書き込み処理
@@ -58,6 +79,7 @@ public class CalculateSales {
 	private static boolean readFile(String path, String fileName, Map<String, String> branchNames, Map<String, Long> branchSales) {
 		BufferedReader br = null;
 
+
 		try {
 			File file = new File(path, fileName);
 			FileReader fr = new FileReader(file);
@@ -67,22 +89,15 @@ public class CalculateSales {
 			// 一行ずつ読み込む
 			while((line = br.readLine()) != null) {
 				// ※ここの読み込み処理を変更してください。(処理内容1-2)
+
 				String[] items = line.split(",");
-			}
-		
+
+				branchNames.put(items[0], items[1]);
+				branchSales.put(items[0], 0L);
+
 				System.out.println(line);
-				
-		Map<String, String> branchNames1 = new HashMap<>();
-		Map<String, Long> branchSales1 = new HashMap<>();
-		
-			String line1;
-			while((line1 = br.readLine()) != null) {
-				String[] items = line1.split(",");
-				
-				branchNames1.put("001", "札幌支店");
-				branchSales1.put("001", (long) 0);
 			}
-		
+
 
 		} catch(IOException e) {
 			System.out.println(UNKNOWN_ERROR);
