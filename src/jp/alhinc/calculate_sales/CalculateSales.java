@@ -41,11 +41,11 @@ public class CalculateSales {
 		}
 
 		// ※ここから集計処理を作成してください。(処理内容2-1、2-2)
-		File[] files = new File("C:\\Users\\trainee1443\\Desktop\\売上集計課題").listFiles();
+		File[] files = new File(args[0]).listFiles();
 
 		List<File> rcdFiles = new ArrayList<>();
 
-		for(int i = 0; i < files.length ; i++) {
+		for(int i = 0; i < files.length; i++) {
 			if(files[i].getName().matches("^[0-9]{8}[.]rcd$")) {
 				rcdFiles.add(files[i]);  //売上ファイルの条件に当てはまったものをListに追加していく
 			}
@@ -60,7 +60,7 @@ public class CalculateSales {
 				br = new BufferedReader(fr);
 
 				//読み込んだものを格納するためのリストを作成
-				List<String>amountList  = new ArrayList<>();
+				List<String>amountList = new ArrayList<>();
 
 				//読み込んだ文字列（一行分）を一旦入る為の変数
 				String line;
@@ -180,21 +180,22 @@ public class CalculateSales {
 				bw.newLine();
 			}
 
-			} catch(IOException e) {
-				System.out.println(UNKNOWN_ERROR);
-				return false;
-			} finally {
-				// ファイルを開いている場合
-				if(bw != null) {
-					try {
-						// ファイルを閉じる
-						bw.close();
-					} catch(IOException e) {
-						System.out.println(UNKNOWN_ERROR);
-						return false;
-					}
+		} catch(IOException e) {
+			System.out.println(UNKNOWN_ERROR);
+			return false;
+
+		} finally {
+			// ファイルを開いている場合
+			if(bw != null) {
+				try {
+					// ファイルを閉じる
+					bw.close();
+				} catch(IOException e) {
+					System.out.println(UNKNOWN_ERROR);
+					return false;
 				}
 			}
+		}
 		return true;
 
 	}
