@@ -51,6 +51,7 @@ public class CalculateSales {
 			}
 		}
 
+		//売上ファイルの読込処理
 		for(int i = 0; i < rcdFiles.size(); i++) {
 			BufferedReader br = null;
 
@@ -60,7 +61,7 @@ public class CalculateSales {
 				br = new BufferedReader(fr);
 
 				//読み込んだものを格納するためのリストを作成
-				List<String>amountList = new ArrayList<>();
+				List<String>fileContents = new ArrayList<>();
 
 				//読み込んだ文字列（一行分）を一旦入る為の変数
 				String line;
@@ -69,7 +70,7 @@ public class CalculateSales {
 				while((line = br.readLine()) != null){
 
 					//保持する
-					amountList.add(line);
+					fileContents.add(line);
 				}
 
 				/*この段階では、新しいリストの中身は以下のようになっている
@@ -78,12 +79,11 @@ public class CalculateSales {
 				*/
 
 				//売上ファイルから売上金額をMapに加算していくために、型の変換を行う
-				long fileSale = Long.parseLong(amountList.get(1));
-				Long saleAmount = branchSales.get(amountList.get(0)) + fileSale;
+				long fileSale = Long.parseLong(fileContents.get(1));
+				Long saleAmount = branchSales.get(fileContents.get(0)) + fileSale;
 
 				//加算した金額をMapに追加する
-				branchSales.put(amountList.get(0), saleAmount);
-
+				branchSales.put(fileContents.get(0), saleAmount);
 
 			} catch(IOException e) {
 				System.out.println(UNKNOWN_ERROR);
@@ -108,6 +108,7 @@ public class CalculateSales {
 		}
 
 	}
+
 
 	/**
 	 * 支店定義ファイル読み込み処理
@@ -137,7 +138,6 @@ public class CalculateSales {
 				branchSales.put(items[0], 0L);
 
 			}
-
 
 		} catch(IOException e) {
 			System.out.println(UNKNOWN_ERROR);
