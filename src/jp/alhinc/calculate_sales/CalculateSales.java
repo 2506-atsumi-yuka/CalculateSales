@@ -57,7 +57,9 @@ public class CalculateSales {
 		List<File> rcdFiles = new ArrayList<>();
 
 		for(int i = 0; i < files.length; i++) {
-			if(files[i].getName().matches("^[0-9]{8}[.]rcd$")) {
+			//売上ファイルが数字8桁.rcdかどうか確認
+			//ファイルかどうか確認する
+			if(files[i].isFile() && files[i].getName().matches("^[0-9]{8}[.]rcd$")) {
 				rcdFiles.add(files[i]);  //売上ファイルの条件に当てはまったものをListに追加していく
 			}
 		}
@@ -177,12 +179,6 @@ public class CalculateSales {
 			//ファイルの存在を確認する(エラー処理)★
 			if(!file.exists()) {
 				System.out.println(FILE_NOT_EXIST);
-				return false;
-			}
-
-			//ファイルなのかを確認する（エラー処理）★
-			if(file.isFile() && fileName.matches("^[0-9]{8}[.]rcd$")) {
-				System.out.println(UNKNOWN_ERROR);
 				return false;
 			}
 
