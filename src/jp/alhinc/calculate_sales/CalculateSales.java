@@ -25,6 +25,9 @@ public class CalculateSales {
 	private static final String FILE_NOT_EXIST = "支店定義ファイルが存在しません";
 	private static final String FILE_INVALID_FORMAT = "支店定義ファイルのフォーマットが不正です";
 	private static final String FILE_INVALID_SEQUENCE = "売上ファイル名が連番になっていません";
+	private static final String RCD_INVALID_FORMAT = "のフォーマットが不正です";
+	private static final String RCD_INVALID_CODE = "のコードが不正です";
+	private static final String TOTAL_AMOUNT_EXCEEDED = "合計金額が10桁を超えました";
 
 	/**
 	 * メインメソッド
@@ -58,6 +61,7 @@ public class CalculateSales {
 				rcdFiles.add(files[i]);  //売上ファイルの条件に当てはまったものをListに追加していく
 			}
 		}
+		//売上ファイルを保持しているListをソートする
 		Collections.sort(rcdFiles);
 		//売上ファイルが連番になっているか確認する(エラー処理)★
 		for(int i = 0; i < rcdFiles.size() -1; i++) {
@@ -99,13 +103,13 @@ public class CalculateSales {
 				}
 				//売上ファイルのフォーマットを確認する(エラー処理)★
 				if(fileContents.size() != 2) {
-					System.out.println(rcdFiles.get(i).getName() +"のフォーマットが不正です");
+					System.out.println(rcdFiles.get(i).getName() + RCD_INVALID_FORMAT);
 					return;
 				}
 
 				//Mapに特定のkeyが存在するか確認する(エラー処理)★
 				if(!branchSales.containsKey(fileContents.get(0))) {
-					System.out.println(rcdFiles.get(i).getName() +"の支店コードが不正です");
+					System.out.println(rcdFiles.get(i).getName() + RCD_INVALID_CODE);
 					return;
 				}
 
@@ -125,7 +129,7 @@ public class CalculateSales {
 
 				//合計金額の合計が10桁を超えたかを確認する(エラー処理)★
 				if(saleAmount >= 10000000000L) {
-					System.out.println("合計金額が10桁を超えました");
+					System.out.println(TOTAL_AMOUNT_EXCEEDED);
 					return;
 				}
 
